@@ -2,30 +2,42 @@ import { InferSelectModel, relations } from "drizzle-orm";
 import {
 	integer,
 	pgTable,
-	serial,
+	pgEnum,
 	timestamp,
+	text,
 	varchar,
 } from "drizzle-orm/pg-core";
 
+import { id, createdAt, updatedAt } from "../utils/schemaHelpers";
+
 import { post } from "@/db/schema"
+import { UserCourseAccessTable } from "@/db/schema";
+
+export const userRoles = ["user", "admin"] as const
+export type UserRole = (typeof userRoles)[number]
+export const userRoleEnum = pgEnum("user_role", userRoles)
 
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 // Schema Table
 export const user = pgTable("user", {
-	id: serial("id").notNull().primaryKey(),
+	id,
 	fullName: varchar("full_name", { length: 255 }).notNull(),
+	role: userRoleEnum().notNull().default("user"),
 	age: integer("age").notNull(),
 	password: varchar("password", { length: 255 }).notNull(),
+	imageUrl: text("image"),
 	email: varchar("email", { length: 255 }).notNull().unique(),
-	createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
-	updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
+	emailVerified: timestamp("emailVerified", { mode: "date" }),
+	createdAt,
+	updatedAt,
 });
 
 // Schema Relations
 export const userRelations = relations(user, ({ many }) => ({
 	posts: many(post),
+	userCourseAccesses: many(UserCourseAccessTable),
 }));
 
 // Schema Type

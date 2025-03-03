@@ -1,16 +1,16 @@
-import { pgTable, primaryKey, uuid } from "drizzle-orm/pg-core"
+import { pgTable, primaryKey, serial } from "drizzle-orm/pg-core"
 import { createdAt, updatedAt } from "../utils/schemaHelpers"
 import { relations } from "drizzle-orm"
-import { UserTable } from "./../user/userLms"
+import { user } from "@/db/schema"
 import { LessonTable } from "./lesson"
 
 export const UserLessonCompleteTable = pgTable(
   "user_lesson_complete",
   {
-    userId: uuid()
+    userId: serial()
       .notNull()
-      .references(() => UserTable.id, { onDelete: "cascade" }),
-    lessonId: uuid()
+      .references(() => user.id, { onDelete: "cascade" }),
+    lessonId: serial()
       .notNull()
       .references(() => LessonTable.id, { onDelete: "cascade" }),
     createdAt,
@@ -22,9 +22,9 @@ export const UserLessonCompleteTable = pgTable(
 export const UserLessonCompleteRelationships = relations(
   UserLessonCompleteTable,
   ({ one }) => ({
-    user: one(UserTable, {
+    user: one(user, {
       fields: [UserLessonCompleteTable.userId],
-      references: [UserTable.id],
+      references: [user.id],
     }),
     lesson: one(LessonTable, {
       fields: [UserLessonCompleteTable.lessonId],

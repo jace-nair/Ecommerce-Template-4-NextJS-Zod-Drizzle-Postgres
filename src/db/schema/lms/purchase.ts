@@ -2,13 +2,13 @@ import {
   pgTable,
   integer,
   jsonb,
-  uuid,
+  serial,
   text,
   timestamp,
 } from "drizzle-orm/pg-core"
 import { createdAt, id, updatedAt } from "../utils/schemaHelpers"
 import { relations } from "drizzle-orm"
-import { UserTable } from "./../user/userLms"
+import { user } from "@/db/schema"
 import { ProductTable } from "./product"
 
 export const PurchaseTable = pgTable("purchases", {
@@ -17,10 +17,10 @@ export const PurchaseTable = pgTable("purchases", {
   productDetails: jsonb()
     .notNull()
     .$type<{ name: string; description: string; imageUrl: string }>(),
-  userId: uuid()
+  userId: serial()
     .notNull()
-    .references(() => UserTable.id, { onDelete: "restrict" }),
-  productId: uuid()
+    .references(() => user.id, { onDelete: "restrict" }),
+  productId: serial()
     .notNull()
     .references(() => ProductTable.id, { onDelete: "restrict" }),
   stripeSessionId: text().notNull().unique(),
@@ -30,9 +30,9 @@ export const PurchaseTable = pgTable("purchases", {
 })
 
 export const PurchaseRelationships = relations(PurchaseTable, ({ one }) => ({
-  user: one(UserTable, {
+  user: one(user, {
     fields: [PurchaseTable.userId],
-    references: [UserTable.id],
+    references: [user.id],
   }),
   product: one(ProductTable, {
     fields: [PurchaseTable.productId],

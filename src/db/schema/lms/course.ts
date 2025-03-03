@@ -1,9 +1,9 @@
-import { relations } from "drizzle-orm"
-import { pgTable, text } from "drizzle-orm/pg-core"
-import { createdAt, id, updatedAt } from "../utils/schemaHelpers"
-import { CourseProductTable } from "./courseProduct"
-import { UserCourseAccessTable } from "./../lms/userCourseAccess"
-import { CourseSectionTable } from "./../lms/courseSection"
+import { relations } from "drizzle-orm";
+import { pgTable, text } from "drizzle-orm/pg-core";
+import { createdAt, id, updatedAt } from "../utils/schemaHelpers";
+import { CourseProductTable } from "@/db/schema";
+import { UserCourseAccessTable } from "@/db/schema";
+import { CourseSectionTable } from "@/db/schema";
 
 // Schema Table
 export const CourseTable = pgTable("courses", {

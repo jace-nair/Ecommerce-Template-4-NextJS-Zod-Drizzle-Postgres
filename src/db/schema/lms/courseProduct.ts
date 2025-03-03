@@ -1,18 +1,18 @@
-import { pgTable, primaryKey, uuid } from "drizzle-orm/pg-core"
-import { CourseTable } from "./course"
-import { ProductTable } from "./product"
-import { createdAt, updatedAt } from "../utils/schemaHelpers"
-import { relations } from "drizzle-orm"
+import { pgTable, primaryKey, serial } from "drizzle-orm/pg-core";
+import { CourseTable } from "@/db/schema";
+import { ProductTable } from "@/db/schema";
+import { createdAt, updatedAt } from "../utils/schemaHelpers";
+import { relations } from "drizzle-orm";
 
 
 // Schema Table
 export const CourseProductTable = pgTable(
   "course_products",
   {
-    courseId: uuid()
+    courseId: serial()
       .notNull()
       .references(() => CourseTable.id, { onDelete: "restrict" }),
-    productId: uuid()
+    productId: serial()
       .notNull()
       .references(() => ProductTable.id, { onDelete: "cascade" }),
     createdAt,

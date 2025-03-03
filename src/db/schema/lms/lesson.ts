@@ -1,8 +1,8 @@
-import { pgTable, text, uuid, integer, pgEnum } from "drizzle-orm/pg-core"
+import { pgTable, text, serial, integer, pgEnum } from "drizzle-orm/pg-core"
 import { createdAt, id, updatedAt } from "../utils/schemaHelpers"
 import { relations } from "drizzle-orm"
-import { CourseSectionTable } from "./courseSection"
-import { UserLessonCompleteTable } from "./../lms/userLessonComplete"
+import { CourseSectionTable } from "@/db/schema"
+import { UserLessonCompleteTable } from "@/db/schema"
 
 export const lessonStatuses = ["public", "private", "preview"] as const
 export type LessonStatus = (typeof lessonStatuses)[number]
@@ -15,7 +15,7 @@ export const LessonTable = pgTable("lessons", {
   youtubeVideoId: text().notNull(),
   order: integer().notNull(),
   status: lessonStatusEnum().notNull().default("private"),
-  sectionId: uuid()
+  sectionId: serial()
     .notNull()
     .references(() => CourseSectionTable.id, { onDelete: "cascade" }),
   createdAt,

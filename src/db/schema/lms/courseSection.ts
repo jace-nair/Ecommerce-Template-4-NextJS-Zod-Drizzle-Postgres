@@ -1,8 +1,8 @@
-import { integer, pgEnum, pgTable, text, uuid } from "drizzle-orm/pg-core"
+import { integer, pgEnum, pgTable, text, serial } from "drizzle-orm/pg-core"
 import { createdAt, id, updatedAt } from "../utils/schemaHelpers"
-import { CourseTable } from "./course"
+import { CourseTable } from "@/db/schema"
 import { relations } from "drizzle-orm"
-import { LessonTable } from "./../lms/lesson"
+import { LessonTable } from "@/db/schema"
 
 export const courseSectionStatuses = ["public", "private"] as const
 export type CourseSectionStatus = (typeof courseSectionStatuses)[number]
@@ -16,7 +16,7 @@ export const CourseSectionTable = pgTable("course_sections", {
   name: text().notNull(),
   status: courseSectionStatusEnum().notNull().default("private"),
   order: integer().notNull(),
-  courseId: uuid()
+  courseId: serial()
     .notNull()
     .references(() => CourseTable.id, { onDelete: "cascade" }),
   createdAt,
