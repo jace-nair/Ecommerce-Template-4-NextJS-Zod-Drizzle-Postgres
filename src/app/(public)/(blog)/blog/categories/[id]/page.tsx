@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 
-import { PostCards } from "@/app/(public)/_components/post-cards";
+import { PostCards } from "@/app/(public)/(blog)/blog/_components/post-cards";
 import {
 	getCategoryPostsCount,
 	getPostsByCategoryId,
-} from "@/app/(public)/categories/[id]/queries";
+} from "@/app/(public)/(blog)/blog/categories/[id]/queries";
 import { getCategories } from "@/app/queries";
 import { Pagination } from "@/components/pagination";
 
@@ -37,7 +37,7 @@ export default async function Page(props: Props) {
 			<Pagination
 				page={page}
 				pagesCount={pagesCount}
-				urlPrefix={`/categories/${(await props.params).id}?`}
+				urlPrefix={`/blog/categories/${(await props.params).id}?`}
 			/>
 		</main>
 	);

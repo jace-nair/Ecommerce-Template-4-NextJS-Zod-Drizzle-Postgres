@@ -1,4 +1,4 @@
-import { PostCards } from "@/app/(public)/_components/post-cards";
+import { PostCards } from "@/app/(public)/(blog)/blog/_components/post-cards";
 import { getPosts, getPostsCount } from "@/app/queries";
 import { Pagination } from "@/components/pagination";
 

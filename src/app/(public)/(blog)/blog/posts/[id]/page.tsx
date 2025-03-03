@@ -2,9 +2,9 @@ import parse from "html-react-parser";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { PostCards } from "@/app/(public)/_components/post-cards";
-import { CommentReplyForm } from "@/app/(public)/posts/[id]/_components/comment-reply-form";
-import { getPostById } from "@/app/(public)/posts/[id]/queries";
+import { PostCards } from "@/app/(public)/(blog)/blog/_components/post-cards";
+import { CommentReplyForm } from "@/app/(public)/(blog)/blog/posts/[id]/_components/comment-reply-form";
+import { getPostById } from "@/app/(public)/(blog)/blog/posts/[id]/queries";
 import { UserAvatar } from "@/app/_components/user-avatar";
 import { getRelatedPostsByCategoryId } from "@/app/queries";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -27,7 +27,7 @@ export default async function Page(props: Props) {
 			<div className="flex items-center gap-5">
 				<UserAvatar data={postData.user} />
 				{!!postData.categoryId && (
-					<Link href={`/categories/${postData.categoryId}`}>
+					<Link href={`/blog/categories/${postData.categoryId}`}>
 						{postData.category?.name}
 					</Link>
 				)}

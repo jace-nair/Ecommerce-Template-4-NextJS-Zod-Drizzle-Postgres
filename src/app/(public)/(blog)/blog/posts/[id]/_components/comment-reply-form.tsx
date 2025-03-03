@@ -2,7 +2,7 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { createComment } from "@/app/(public)/posts/[id]/actions";
+import { createComment } from "@/app/(public)/(blog)/blog/posts/[id]/actions";
 import { Button } from "@/components/ui/button";
 import {
 	Form,

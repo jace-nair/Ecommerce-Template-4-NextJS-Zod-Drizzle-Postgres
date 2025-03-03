@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { PostCards } from "@/app/(public)/_components/post-cards";
+import { PostCards } from "@/app/(public)/(blog)/blog/_components/post-cards";
 import { getUser, getUserPosts, getUserPostsCount } from "@/app/queries";
 import { Pagination } from "@/components/pagination";
 
@@ -27,7 +27,7 @@ export default async function Page(props: Props) {
 			<Pagination
 				page={page}
 				pagesCount={pagesCount}
-				urlPrefix={`/posts/user/${(await props.params).id}?`}
+				urlPrefix={`/blog/posts/user/${(await props.params).id}?`}
 			/>
 		</main>
 	);

@@ -8,7 +8,7 @@ type Props = {
 	href?: string;
 };
 export function UserAvatar({ data, ...props }: Props) {
-	const { href = `/posts/user/${data?.id}` } = props;
+	const { href = `/blog/posts/user/${data?.id}` } = props;
 
 	return (
 		<Link href={href}>

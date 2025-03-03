@@ -34,7 +34,7 @@ export function PostCards({ data }: Props) {
 							</div>
 							<CardFooter>
 								<Button variant="secondary" asChild>
-									<Link href={`/posts/${post.id}`}>Read more</Link>
+									<Link href={`/blog/posts/${post.id}`}>Read more</Link>
 								</Button>
 							</CardFooter>
 						</Card>

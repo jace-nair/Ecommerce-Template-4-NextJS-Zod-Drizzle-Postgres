@@ -3,18 +3,18 @@ import "@/app/globals.css";
 
 import { Inter } from "next/font/google";
 
-import { Navbar } from "@/app/_components/navbar";
+//import { Navbar } from "@/app/_components/posts-navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "My blog",
+	title: "My Shop",
 	description: "Modern web development",
 };
 
-export default async function Layout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
@@ -28,7 +28,6 @@ export default async function Layout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<Navbar />
 					{children}
 				</ThemeProvider>
 			</body>

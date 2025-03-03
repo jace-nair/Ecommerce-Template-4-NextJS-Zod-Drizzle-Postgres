@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 
-import { PostCards } from "@/app/(public)/_components/post-cards";
+import { PostCards } from "@/app/(public)/(blog)/blog/_components/post-cards";
 import { getPosts } from "@/app/queries";
 import { Button } from "@/components/ui/button";
 

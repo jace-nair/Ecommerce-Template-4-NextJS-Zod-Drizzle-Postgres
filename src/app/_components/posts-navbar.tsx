@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-import { Search } from "@/app/(public)/search/_components/search";
+import { Search } from "@/app/(public)/(blog)/blog/search/_components/search";
 import { AuthUserAvatar } from "@/app/_components/auth-user-avatar";
 import { getCategories } from "@/app/queries";
 import { Button } from "@/components/ui/button";
 
-export async function Navbar() {
+export async function PostsNavbar() {
 	const categoriesData = (await getCategories()) || [];
 
 	return (
@@ -16,7 +16,7 @@ export async function Navbar() {
 				</Button>
 				{categoriesData.map((category) => (
 					<Button variant="ghost" asChild key={category.id}>
-						<Link href={`/categories/${category.id}`}>{category.name}</Link>
+						<Link href={`/blog/categories/${category.id}`}>{category.name}</Link>
 					</Button>
 				))}
 			</div>
