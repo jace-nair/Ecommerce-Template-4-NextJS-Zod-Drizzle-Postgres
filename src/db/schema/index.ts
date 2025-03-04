@@ -1,3 +1,4 @@
+export * from "@/db/schema/general/navLinks";
 export * from "@/db/schema/user/user";
 export * from "@/db/schema/post/category";
 export * from "@/db/schema/post/post";

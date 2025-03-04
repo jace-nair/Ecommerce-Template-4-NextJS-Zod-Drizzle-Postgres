@@ -16,6 +16,7 @@ async function main() {
 		schema.post,
 		schema.postTags,
 		schema.comment,
+		schema.navLinks,
 	]) {
 		await resetTable(db, table);
 	}
@@ -25,6 +26,7 @@ async function main() {
 	await seeds.post(db);
 	await seeds.postTags(db);
 	await seeds.comment(db);
+	await seeds.navLinks(db);
 }
 
 main()

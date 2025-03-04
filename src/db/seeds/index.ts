@@ -4,3 +4,4 @@ export { seed as tag } from "@/db/seeds/tag";
 export { seed as post } from "@/db/seeds/post";
 export { seed as postTags } from "@/db/seeds/postTags";
 export { seed as comment } from "@/db/seeds/comment";
+export { seed as navLinks } from "@/db/seeds/navLinks";

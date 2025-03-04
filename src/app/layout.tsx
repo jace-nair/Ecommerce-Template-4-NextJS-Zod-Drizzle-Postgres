@@ -3,7 +3,7 @@ import "@/app/globals.css";
 
 import { Inter } from "next/font/google";
 
-//import { Navbar } from "@/app/_components/posts-navbar";
+import { Navbar } from "@/app/_components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +28,7 @@ export default async function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
+					<Navbar />
 					{children}
 				</ThemeProvider>
 			</body>

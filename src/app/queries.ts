@@ -4,6 +4,14 @@ import { db } from "@/db";
 import { post, user } from "@/db/schema";
 import { executeQuery } from "@/db/utils/executeQuery";
 
+export async function getNavLinks() {
+	return executeQuery({
+		queryFn: async () => await db.query.navLinks.findMany(),
+		serverErrorMessage: "getNavLinks",
+		isProtected: false,
+	});
+}
+
 export async function getCategories() {
 	return executeQuery({
 		queryFn: async () => await db.query.category.findMany(),
