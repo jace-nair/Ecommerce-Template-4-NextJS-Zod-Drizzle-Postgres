@@ -11,7 +11,7 @@ import {
 import { id, createdAt, updatedAt } from "../utils/schemaHelpers";
 
 import { post } from "@/db/schema"
-import { UserCourseAccessTable } from "@/db/schema";
+import { userCourseAccessTable } from "@/db/schema";
 
 export const userRoles = ["user", "admin"] as const
 export type UserRole = (typeof userRoles)[number]
@@ -37,7 +37,7 @@ export const user = pgTable("user", {
 // Schema Relations
 export const userRelations = relations(user, ({ many }) => ({
 	posts: many(post),
-	userCourseAccesses: many(UserCourseAccessTable),
+	userCourseAccesses: many(userCourseAccessTable),
 }));
 
 // Schema Type

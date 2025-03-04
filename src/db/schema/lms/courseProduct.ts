@@ -1,20 +1,23 @@
 import { pgTable, primaryKey, serial } from "drizzle-orm/pg-core";
-import { CourseTable } from "@/db/schema";
-import { ProductTable } from "@/db/schema";
+import { courseTable } from "@/db/schema";
+import { productTable } from "@/db/schema";
 import { createdAt, updatedAt } from "../utils/schemaHelpers";
 import { relations } from "drizzle-orm";
 
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+
 
 // Schema Table
-export const CourseProductTable = pgTable(
+export const courseProductTable = pgTable(
   "course_products",
   {
     courseId: serial()
       .notNull()
-      .references(() => CourseTable.id, { onDelete: "restrict" }),
+      .references(() => courseTable.id, { onDelete: "restrict" }),
     productId: serial()
       .notNull()
-      .references(() => ProductTable.id, { onDelete: "cascade" }),
+      .references(() => productTable.id, { onDelete: "cascade" }),
     createdAt,
     updatedAt,
   },
@@ -22,16 +25,20 @@ export const CourseProductTable = pgTable(
 )
 
 // Schema Relations
-export const CourseProductRelationships = relations(
-  CourseProductTable,
+export const courseProductRelations = relations(
+  courseProductTable,
   ({ one }) => ({
-    course: one(CourseTable, {
-      fields: [CourseProductTable.courseId],
-      references: [CourseTable.id],
+    course: one(courseTable, {
+      fields: [courseProductTable.courseId],
+      references: [courseTable.id],
     }),
-    product: one(ProductTable, {
-      fields: [CourseProductTable.productId],
-      references: [ProductTable.id],
+    product: one(productTable, {
+      fields: [courseProductTable.productId],
+      references: [productTable.id],
     }),
   })
 )
+
+// Schema Type
+export const courseProductTableSchema = createInsertSchema(courseProductTable);
+export type CourseProductTableSchemaType = z.infer<typeof courseProductTableSchema>;

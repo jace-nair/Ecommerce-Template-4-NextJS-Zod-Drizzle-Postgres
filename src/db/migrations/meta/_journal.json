@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1740994152575,
-      "tag": "0000_fixed_lightspeed",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1741070127469,
-      "tag": "0001_blue_wiccan",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1741070340151,
-      "tag": "0002_conscious_monster_badoon",
+      "when": 1741088017009,
+      "tag": "0000_bored_blazing_skull",
       "breakpoints": true
     }
   ]

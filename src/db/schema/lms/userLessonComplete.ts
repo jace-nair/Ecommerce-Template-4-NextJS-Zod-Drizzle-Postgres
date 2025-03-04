@@ -2,9 +2,12 @@ import { pgTable, primaryKey, serial } from "drizzle-orm/pg-core"
 import { createdAt, updatedAt } from "../utils/schemaHelpers"
 import { relations } from "drizzle-orm"
 import { user } from "@/db/schema"
-import { LessonTable } from "./lesson"
+import { lessonTable } from "@/db/schema"
 
-export const UserLessonCompleteTable = pgTable(
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+
+export const userLessonCompleteTable = pgTable(
   "user_lesson_complete",
   {
     userId: serial()
@@ -12,23 +15,27 @@ export const UserLessonCompleteTable = pgTable(
       .references(() => user.id, { onDelete: "cascade" }),
     lessonId: serial()
       .notNull()
-      .references(() => LessonTable.id, { onDelete: "cascade" }),
+      .references(() => lessonTable.id, { onDelete: "cascade" }),
     createdAt,
     updatedAt,
   },
   t => [primaryKey({ columns: [t.userId, t.lessonId] })]
 )
 
-export const UserLessonCompleteRelationships = relations(
-  UserLessonCompleteTable,
+export const userLessonCompleteRelations = relations(
+  userLessonCompleteTable,
   ({ one }) => ({
     user: one(user, {
-      fields: [UserLessonCompleteTable.userId],
+      fields: [userLessonCompleteTable.userId],
       references: [user.id],
     }),
-    lesson: one(LessonTable, {
-      fields: [UserLessonCompleteTable.lessonId],
-      references: [LessonTable.id],
+    lesson: one(lessonTable, {
+      fields: [userLessonCompleteTable.lessonId],
+      references: [lessonTable.id],
     }),
   })
 )
+
+// Schema Type
+export const userLessonCompleteTableSchema = createInsertSchema(userLessonCompleteTable);
+export type UserLessonCompleteTableSchemaType = z.infer<typeof userLessonCompleteTableSchema>;

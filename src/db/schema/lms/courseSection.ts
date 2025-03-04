@@ -1,8 +1,11 @@
 import { integer, pgEnum, pgTable, text, serial } from "drizzle-orm/pg-core"
 import { createdAt, id, updatedAt } from "../utils/schemaHelpers"
-import { CourseTable } from "@/db/schema"
+import { courseTable } from "@/db/schema"
 import { relations } from "drizzle-orm"
-import { LessonTable } from "@/db/schema"
+import { lessonTable } from "@/db/schema"
+
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
 export const courseSectionStatuses = ["public", "private"] as const
 export type CourseSectionStatus = (typeof courseSectionStatuses)[number]
@@ -11,25 +14,32 @@ export const courseSectionStatusEnum = pgEnum(
   courseSectionStatuses
 )
 
-export const CourseSectionTable = pgTable("course_sections", {
+// Schema Table
+export const courseSectionTable = pgTable("course_sections", {
   id,
   name: text().notNull(),
   status: courseSectionStatusEnum().notNull().default("private"),
   order: integer().notNull(),
   courseId: serial()
     .notNull()
-    .references(() => CourseTable.id, { onDelete: "cascade" }),
+    .references(() => courseTable.id, { onDelete: "cascade" }),
   createdAt,
   updatedAt,
 })
 
-export const CourseSectionRelationships = relations(
-  CourseSectionTable,
+
+// Schema Relations
+export const courseSectionRelations = relations(
+  courseSectionTable,
   ({ many, one }) => ({
-    course: one(CourseTable, {
-      fields: [CourseSectionTable.courseId],
-      references: [CourseTable.id],
+    course: one(courseTable, {
+      fields: [courseSectionTable.courseId],
+      references: [courseTable.id],
     }),
-    lessons: many(LessonTable),
+    lessons: many(lessonTable),
   })
 )
+
+// Schema Type
+export const courseSectionTableSchema = createInsertSchema(courseSectionTable);
+export type CourseSectionTableSchemaType = z.infer<typeof courseSectionTableSchema>;

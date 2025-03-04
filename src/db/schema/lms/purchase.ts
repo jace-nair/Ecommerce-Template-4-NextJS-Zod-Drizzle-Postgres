@@ -9,9 +9,13 @@ import {
 import { createdAt, id, updatedAt } from "../utils/schemaHelpers"
 import { relations } from "drizzle-orm"
 import { user } from "@/db/schema"
-import { ProductTable } from "./product"
+import { productTable } from "@/db/schema"
 
-export const PurchaseTable = pgTable("purchases", {
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+
+// Schema Table
+export const purchaseTable = pgTable("purchases", {
   id,
   pricePaidInCents: integer().notNull(),
   productDetails: jsonb()
@@ -22,20 +26,25 @@ export const PurchaseTable = pgTable("purchases", {
     .references(() => user.id, { onDelete: "restrict" }),
   productId: serial()
     .notNull()
-    .references(() => ProductTable.id, { onDelete: "restrict" }),
+    .references(() => productTable.id, { onDelete: "restrict" }),
   stripeSessionId: text().notNull().unique(),
   refundedAt: timestamp({ withTimezone: true }),
   createdAt,
   updatedAt,
 })
 
-export const PurchaseRelationships = relations(PurchaseTable, ({ one }) => ({
+// Schema Relations
+export const purchaseRelations = relations(purchaseTable, ({ one }) => ({
   user: one(user, {
-    fields: [PurchaseTable.userId],
+    fields: [purchaseTable.userId],
     references: [user.id],
   }),
-  product: one(ProductTable, {
-    fields: [PurchaseTable.productId],
-    references: [ProductTable.id],
+  product: one(productTable, {
+    fields: [purchaseTable.productId],
+    references: [productTable.id],
   }),
 }))
+
+// Schema Type
+export const purchaseTableSchema = createInsertSchema(purchaseTable);
+export type PurchaseTableSchemaType = z.infer<typeof purchaseTableSchema>;

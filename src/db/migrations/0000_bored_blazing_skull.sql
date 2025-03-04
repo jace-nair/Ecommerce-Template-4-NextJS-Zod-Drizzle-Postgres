@@ -2,6 +2,14 @@ CREATE TYPE "public"."user_role" AS ENUM('user', 'admin');--> statement-breakpoi
 CREATE TYPE "public"."course_section_status" AS ENUM('public', 'private');--> statement-breakpoint
 CREATE TYPE "public"."lesson_status" AS ENUM('public', 'private', 'preview');--> statement-breakpoint
 CREATE TYPE "public"."product_status" AS ENUM('public', 'private');--> statement-breakpoint
+CREATE TABLE "nav_links" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"href" varchar(255) NOT NULL,
+	CONSTRAINT "nav_links_name_unique" UNIQUE("name"),
+	CONSTRAINT "nav_links_href_unique" UNIQUE("href")
+);
+--> statement-breakpoint
 CREATE TABLE "user" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"full_name" varchar(255) NOT NULL,
