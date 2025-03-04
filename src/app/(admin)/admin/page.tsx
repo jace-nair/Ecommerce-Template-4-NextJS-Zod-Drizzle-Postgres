@@ -10,7 +10,7 @@ export default async function Page() {
 
 	return (
 		<main className="space-y-3">
-			<h1 className="text-2xl">Profile</h1>
+			<h1 className="text-lg">Profile</h1>
 			<UserForm
 				defaultValues={{
 					mode: "update",

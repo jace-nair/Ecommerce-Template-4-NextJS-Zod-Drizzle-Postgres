@@ -1,3 +1,5 @@
+import LearnFooter from "@/components/footer/LearnFooter";
+import LearnHeader from "@/components/header/LearnHeader";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,7 +15,9 @@ export default async function Layout({
 	return (
 		
 			<main className="container max-w-7xl pb-5">
+					<LearnHeader />
 					{children}
+					<LearnFooter />
 			</main>
 	);
 }

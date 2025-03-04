@@ -1,6 +1,7 @@
+import BlogHeader from "@/components/header/BlogHeader";
 import type { Metadata } from "next";
 
-import { PostsNavbar } from "@/app/_components/posts-navbar";
+//import { PostsNavbar } from "@/components/navigation/BlogNavbar";
 
 export const metadata: Metadata = {
 	title: "My Blog",
@@ -15,7 +16,7 @@ export default async function Layout({
 	return (
 		
 			<main className="container max-w-7xl pb-5">
-					<PostsNavbar />
+					<BlogHeader />
 					{children}
 			</main>
 	);

@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
+import { Badge } from "@/components/ui/badge";
 
-export default async function Layout({
+export default async function AdminLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
@@ -13,13 +14,24 @@ export default async function Layout({
 	if (!session) notFound();
 
 	return (
-		<div className="space-y-3">
-			<Button asChild variant="ghost">
-				<Link href="/admin">Profile</Link>
-			</Button>
-			<Button asChild variant="ghost">
-				<Link href="/admin/posts">Posts</Link>
-			</Button>
+		<div className="py-5">
+			<div className="flex items-center justify-between ">
+				<div className="flex py-5 gap-5">
+					<Button asChild variant="ghost">
+						<Link href="/admin">Profile</Link>
+					</Button>
+					<Button asChild variant="ghost">
+						<Link href="/admin/shop">Shop</Link>
+					</Button>
+					<Button asChild variant="ghost">
+						<Link href="/admin/lms">Courses</Link>
+					</Button>
+					<Button asChild variant="ghost">
+						<Link href="/admin/posts">Posts</Link>
+					</Button>
+				</div>
+				<Badge className="font-extrabold">Admin Page</Badge>
+			</div>
 			{children}
 		</div>
 	);

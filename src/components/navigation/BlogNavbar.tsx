@@ -5,7 +5,7 @@ import { Search } from "@/app/(public)/(blog)/blog/search/_components/search";
 import { getCategories } from "@/app/queries";
 import { Button } from "@/components/ui/button";
 
-export async function PostsNavbar() {
+export async function BlogNavbar() {
 	const categoriesData = (await getCategories()) || [];
 
 	return (
